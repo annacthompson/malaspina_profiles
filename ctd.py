@@ -37,9 +37,6 @@ def general_info(fullmatrix) :
     out = fullmatrix[0:27]
     return out
 
-def profile_data_column_names(fullmatrix) :
-    return fullmatrix[28]
-
 def profile_data(fullmatrix) :
     return fullmatrix[29:]
 
@@ -79,26 +76,32 @@ def surface_temp(profiledata):
 
 def min_temp(profiledata):
     a = makecolumn(profiledata,2)
+    a=list(map(lambda x: Decimal(x), a))
     return min(a)
 
 def max_temp(profiledata):
     a = makecolumn(profiledata,2)
+    a=list(map(lambda x: Decimal(x), a))
     return max(a)
 
 def avg_temp(profiledata):
     a = makecolumn(profiledata,2)
+    a=list(map(lambda x: Decimal(x), a))
     return avg(a)
 
 def min_salin(profiledata):
-    a = makecolumn(profiledata,5)
+    a = makecolumn(profiledata,4)
+    a=list(map(lambda x: Decimal(x), a))
     return min(a)
 
 def max_salin(profiledata):
-    a = makecolumn(profiledata,5)
+    a = makecolumn(profiledata,4)
+    a=list(map(lambda x: Decimal(x), a))
     return max(a)
 
 def avg_salin(profiledata):
-    a = makecolumn(profiledata,5)
+    a = makecolumn(profiledata,4)
+    a=list(map(lambda x: Decimal(x), a))
     return avg(a)
 
 #build output matrix
@@ -134,7 +137,7 @@ for filename in os.listdir('csv_raw_test'):
 # https://docs.python.org/3/library/decimal.html
 
 #add headers
-headers = ['filename','cast_time_utc', 'cast_time_local', 'start_lat', 'start_lon', 'start_gps_horz_error', 'end_lat', 'end_lon', 'end_gps_horz_error','cast_duration', 'depth', 'surface_temp', 'min_temp','max_temp', 'avg_temp', 'min_salinity','max_salinity', 'avg_salinity']
+headers = ['filename','cast_time_utc', 'cast_time_local', 'start_lat', 'start_lon', 'start_gps_horz_error', 'end_lat', 'end_lon', 'end_gps_horz_error','cast_duration', 'depth', 'surface_temp', 'min_temp','max_temp', 'avg_temp', 'min_spec_cond','max_spec_cond', 'avg_spec_cond']
 output_matrix.insert(0,headers)
 
 for row in output_matrix :
@@ -145,8 +148,3 @@ print("\n")
 with open("ctdcastdata.csv", "w", newline="") as f:
    writer = csv.writer(f)
    writer.writerows(output_matrix)
-
-
-a=['1','2','30']
-b=avg(a)
-print(b)
